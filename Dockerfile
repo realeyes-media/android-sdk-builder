@@ -6,7 +6,7 @@ ENV SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-3859397.zi
     ANDROID_BUILD_TOOLS_VERSION=26.0.2
 
 # Update and Install Dependencies
-RUN apt-get update && apt-get install gawk
+RUN apt-get update && apt-get install gawk -y
 
 # Download Android SDK
 RUN mkdir "$ANDROID_HOME" .android \

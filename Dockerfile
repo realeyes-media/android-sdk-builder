@@ -25,4 +25,6 @@ RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSIO
 RUN mkdir -p /application
 WORKDIR /application
 
+RUN apt-get upgrade -y wget
+
 CMD [ "/bin/bash" ]

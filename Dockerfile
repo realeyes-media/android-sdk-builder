@@ -1,9 +1,9 @@
 FROM openjdk:8
 
-ENV SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip" \
+ENV SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" \
     ANDROID_HOME="/usr/local/android-sdk" \
-    ANDROID_VERSION=26 \
-    ANDROID_BUILD_TOOLS_VERSION=26.0.2
+    ANDROID_VERSION=28 \
+    ANDROID_BUILD_TOOLS_VERSION=28.0.3
 
 # Update and Install Dependencies
 RUN apt-get update && apt-get install gawk -y

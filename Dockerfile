@@ -6,30 +6,25 @@ ENV SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-4333796.zi
     ANDROID_BUILD_TOOLS_VERSION=28.0.3
 
 # Update and Install Dependencies
-RUN apt-get update && apt-get install gawk -y
+RUN apt-get update && apt-get install gawk bash wget -y && apt-get upgrade -y wget bash && chsh -s /bin/bash
 
 # Download Android SDK
-RUN mkdir "$ANDROID_HOME" .android \
+RUN touch ~/.android/repositories.cfg \
+    && mkdir "$ANDROID_HOME" .android \
     && cd "$ANDROID_HOME" \
     && curl -o sdk.zip $SDK_URL \
     && unzip sdk.zip \
     && rm sdk.zip \
-    && yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+    && echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+ENV PATH="${PATH}:${ANDROID_HOME}/tools/bin"
 
 # Install Android Build Tool and Libraries
-RUN $ANDROID_HOME/tools/bin/sdkmanager --update
-RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" \
+RUN sdkmanager --update
+RUN echo "y" | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" \
     "platforms;android-${ANDROID_VERSION}" \
-    "platform-tools" && \
-    touch ~/.android/repositories.cfg
+    "platform-tools"
 
-RUN mkdir -p /application
-WORKDIR /application
-
-RUN apt-get upgrade -y wget
-
-ENV PATH="${PATH}:${ANDROID_HOME}/tools/bin"
-RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-RUN chsh -s /bin/bash
+RUN mkdir -p /app
+WORKDIR /app
 
 CMD [ "/bin/bash" ]

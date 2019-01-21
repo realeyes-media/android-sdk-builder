@@ -9,13 +9,14 @@ ENV SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-4333796.zi
 RUN apt-get update && apt-get install gawk bash wget -y && apt-get upgrade -y wget bash && chsh -s /bin/bash
 
 # Download Android SDK
-RUN touch ~/.android/repositories.cfg \
-    && mkdir "$ANDROID_HOME" .android \
+RUN mkdir "$ANDROID_HOME" .android \
     && cd "$ANDROID_HOME" \
     && curl -o sdk.zip $SDK_URL \
     && unzip sdk.zip \
     && rm sdk.zip \
-    && echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+    && echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --licenses \
+    && mkdir -p ~/.android \
+    && touch ~/.android/repositories.cfg
 ENV PATH="${PATH}:${ANDROID_HOME}/tools/bin"
 
 # Install Android Build Tool and Libraries

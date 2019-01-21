@@ -29,5 +29,6 @@ RUN apt-get upgrade -y wget
 
 ENV PATH="${PATH}:${ANDROID_HOME}/tools/bin"
 RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+RUN chsh -s /bin/bash
 
 CMD [ "/bin/bash" ]

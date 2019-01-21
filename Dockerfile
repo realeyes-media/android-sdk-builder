@@ -27,4 +27,7 @@ WORKDIR /application
 
 RUN apt-get upgrade -y wget
 
+ENV PATH="${PATH}:${ANDROID_HOME}/tools/bin"
+RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+
 CMD [ "/bin/bash" ]

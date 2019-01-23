@@ -7,7 +7,16 @@ ENV SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-4333796.zi
     GCLOUD_DL="google-cloud-sdk-228.0.0-linux-x86_64"
 
 # Update and Install Dependencies
-RUN apt-get update && apt-get install gawk bash wget python -y && apt-get upgrade -y wget bash && chsh -s /bin/bash
+RUN apt-get update \
+    && apt-get install -y \
+    gawk \
+    bash \
+    wget \
+    python \
+    && apt-get upgrade -y wget bash \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && chsh -s /bin/bash
 
 # Install GCloud SDK
 WORKDIR /
